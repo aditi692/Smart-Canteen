@@ -29,6 +29,7 @@ def crack_passwords(hashed_file, wordlist_file, hash_type='md5'):
         # Select the hashing algorithm
         if hash_type == 'md5':
             hash_object = hashlib.md5(word.encode())
+
         else:
             print(f"[-] Unsupported hash type: {hash_type}")
             return None

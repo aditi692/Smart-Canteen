@@ -1,0 +1,244 @@
+
+/* Menu Page Background      */
+
+.menu-page {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 30px;
+  gap: 30px;
+
+  min-height: 100vh;
+  
+  background-image: url("../assests/Themes.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* keep text visible */
+  color: white;
+}
+
+/* Order Page Background     */
+.order-page {
+  min-height: 100vh;
+  padding: 30px;
+  background-image: url("../assests/Themes.png"); /* ✅ same background */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+/* Inventory Page Background */
+.inventory-page {
+  min-height: 100vh;
+  padding: 30px;
+  background-image: url("../assests/Themes.png"); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+
+/* Menu Layout               */
+
+.menu-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.menu-item {
+  width: 210px;
+  height: 280px;
+  border-radius: 20px;
+  padding: 16px;
+  color: #fff;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+ 
+  background: rgba(25, 25, 25, 0.8);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-item:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Item Image */
+.menu-image {
+  width: 115px;
+  height: 115px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+/* Item Name */
+.menu-item h3 {
+  font-size: 19px;
+  margin: 6px 0 4px;
+  color: #fff;
+  text-align: center;
+}
+
+/* Price */
+.menu-item p {
+  font-size: 15px;
+  margin: 2px 0;
+  color: #e0e0e0;
+}
+
+/* Stock text */
+.stock {
+  color: #ffffff;
+  font-size: 14px;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.stock.out-of-stock {
+  color: #ff4d4d;
+  font-weight: bold;
+}
+
+/* Add to Cart Button */
+.add-btn {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #ff9a9e, #fecfef);
+  border: none;
+  padding: 9px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 12px;
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 100, 130, 0.4);
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.add-btn:hover {
+  transform: scale(1.07);
+  background: linear-gradient(135deg, #ff6a88, #ff99ac);
+  box-shadow: 0 6px 14px rgba(255, 100, 130, 0.6);
+}
+
+
+/* Cart Box (Slide-in Panel) */
+
+.cart-container {
+  color: white;
+  position: fixed;
+  top: 70px;
+  right: -350px; 
+  width: 320px;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: rgba(25, 25, 25, 0.9); 
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  z-index: 1000;
+
+  transition: right 0.4s ease-in-out;
+}
+
+.cart-container.active {
+  right: 20px;
+}
+
+.cart-box h3 {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.cart-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-box li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.cart-box h4 {
+  margin-top: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffd700; 
+  text-align: right;
+}
+
+.remove-btn {
+  margin-left: 10px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 8px;
+  background: #ff4d4d;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.remove-btn:hover {
+  background: #d93636;
+}
+
+.place-btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, #6dd5ed, #2193b0);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 15px;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.place-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #2193b0, #6dd5ed);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
