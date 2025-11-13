@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Auth from "./pages/Auth";
 import Menu from "./pages/Menu";
 import Order from "./pages/Order";
-import Inventory from "./pages/Inventory";
 import Pay from "./pages/Pay";
 import OrderPlaced from "./pages/OrderPlaced";
 import OrderTracking from "./pages/OrderTracking";
+import AdminCreateUser from "./pages/AdminCreateUser";
 import Kitchen from "./pages/Kitchen";
 
 function AppContent({ orderItems, setOrderItems, orders, setOrders, inventory, setInventory, role, setRole }) {
+  const normalizedRole = role?.toUpperCase();
+
   return (
     <>
       <Routes>
@@ -25,29 +28,19 @@ function AppContent({ orderItems, setOrderItems, orders, setOrders, inventory, s
             />
           }
         />
-        <Route
-          path="/order"
-          element={<Order orderItems={orderItems} setOrderItems={setOrderItems} />}
-        />
-        <Route
-  path="/pay"
-  element={<Pay orderItems={orderItems} setOrderItems={setOrderItems} orders={orders} setOrders={setOrders} />}
-/>
-
+        <Route path="/order" element={<Order orderItems={orderItems} setOrderItems={setOrderItems} />} />
+        <Route path="/pay" element={<Pay orderItems={orderItems} setOrderItems={setOrderItems} orders={orders} setOrders={setOrders} />} />
         <Route path="/order-placed" element={<OrderPlaced />} />
-        <Route path="/order-tracking" element={<OrderTracking />} />
+        <Route path="/order-tracking" element={<OrderTracking orders={orders} setOrders={setOrders} />} />
 
-        {role === "admin" && (
-          <Route
-            path="/inventory"
-            element={<Inventory inventory={inventory} setInventory={setInventory} />}
-          />
+        {normalizedRole === "ADMIN" && (
+          <>
+            <Route path="/admin/create-user" element={<AdminCreateUser />} />
+          </>
         )}
-        {role === "kitchen_staff" && (
-          <Route
-            path="/kitchen"
-            element={<Kitchen orders={orders} setOrders={setOrders} />}
-          />
+
+        {normalizedRole === "KITCHEN_STAFF" && (
+          <Route path="/kitchen" element={<Kitchen />} />
         )}
       </Routes>
     </>
@@ -63,20 +56,14 @@ function App() {
     { id: 3, name: "Pasta", stock: 10 },
     { id: 4, name: "Sandwich", stock: 10 },
     { id: 5, name: "Fries", stock: 10 },
-    { id: 6, name: "Cold Drink", stock: 10 }
+    { id: 6, name: "Cold Drink", stock: 10 },
   ]);
   const [role, setRole] = useState(null);
 
   useEffect(() => {
-    const savedOrders = localStorage.getItem('orders');
-    if (savedOrders) {
-      setOrders(JSON.parse(savedOrders));
-    }
+    const storedRole = localStorage.getItem("role");
+    if (storedRole) setRole(storedRole.toUpperCase());
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('orders', JSON.stringify(orders));
-  }, [orders]);
 
   return (
     <Router>

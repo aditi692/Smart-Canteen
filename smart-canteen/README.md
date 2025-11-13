@@ -1,70 +1,278 @@
-# Getting Started with Create React App
+# Smart Canteen
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, full-stack web application for managing campus canteen operations with role-based access for customers, kitchen staff, and administrators. Built with React for the frontend and designed to integrate with a backend API for seamless order management.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Integration](#api-integration)
+- [File Structure](#file-structure)
+- [Roles and Permissions](#roles-and-permissions)
+- [Contributing](#contributing)
+- [License](#license)
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Customer Features
+- **User Authentication**: Secure login/signup with role-based access
+- **Menu Browsing**: Interactive menu with categories, search functionality, and recommendations
+- **Order Management**: Add items to cart, modify quantities, view order summary
+- **Payment Processing**: UPI-based payment simulation with table number input
+- **Order Tracking**: Real-time order status tracking with visual timeline
+- **Order History**: View past orders and their statuses
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Kitchen Staff Features
+- **Order Management**: View incoming orders and update preparation status
+- **Status Updates**: Mark orders as "Preparing" or "Ready"
+- **Real-time Updates**: Live order status synchronization
 
-### `npm test`
+### Admin Features
+- **User Management**: Create new kitchen staff and admin accounts
+- **System Oversight**: Full access to user creation and management
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### General Features
+- **Responsive Design**: Mobile-friendly interface with modern UI
+- **Real-time Notifications**: Order status updates and confirmations
+- **Inventory Management**: Basic stock tracking for menu items
+- **Search Functionality**: Find dishes quickly across all categories
 
-### `npm run build`
+## Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Frontend
+- **React 19.1.1**: Modern React with hooks for state management
+- **React Router DOM 7.9.1**: Client-side routing for single-page application
+- **Axios 1.13.1**: HTTP client for API communication
+- **CSS Modules**: Component-scoped styling
+- **Create React App**: Build tooling and development server
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Development Tools
+- **ESLint**: Code linting and formatting
+- **Jest & React Testing Library**: Unit testing framework
+- **Web Vitals**: Performance monitoring
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Architecture
 
-### `npm run eject`
+The application follows a component-based architecture with clear separation of concerns:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### State Management
+- **Local State**: React hooks (`useState`, `useEffect`) for component-level state
+- **Global State**: Props drilling for shared state (orders, inventory, user role)
+- **Persistent State**: localStorage for authentication tokens and user roles
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Component Structure
+```
+App.js (Main Router)
+├── Auth.js (Login/Signup)
+├── Menu.js (Menu browsing)
+├── Order.js (Cart management)
+├── Pay.js (Payment processing)
+├── OrderPlaced.js (Success confirmation)
+├── OrderTracking.js (Order status)
+├── AdminCreateUser.js (Admin panel)
+└── Kitchen.js (Kitchen staff panel)
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### API Layer
+- Centralized API configuration in `api.js`
+- Axios interceptors for authentication headers
+- Error handling and response processing
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Installation
 
-## Learn More
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn package manager
+- Backend API server running on `http://localhost:9090`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Setup Steps
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd smart-canteen
+   ```
 
-### Code Splitting
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+3. **Start the development server**
+   ```bash
+   npm start
+   ```
 
-### Analyzing the Bundle Size
+4. **Access the application**
+   - Open [http://localhost:3000](http://localhost:3000) in your browser
+   - The application will automatically reload on code changes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Build for Production
+```bash
+npm run build
+```
 
-### Making a Progressive Web App
+This creates an optimized production build in the `build` folder.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Usage
 
-### Advanced Configuration
+### For Customers
+1. **Sign Up/Login**: Create an account or log in with existing credentials
+2. **Browse Menu**: Explore categories or search for specific items
+3. **Add to Cart**: Select items and modify quantities
+4. **Checkout**: Enter table number and complete payment
+5. **Track Order**: Monitor preparation status in real-time
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### For Kitchen Staff
+1. **Login**: Use kitchen staff credentials
+2. **Manage Orders**: View pending orders and update statuses
+3. **Process Orders**: Mark orders as preparing or ready
 
-### Deployment
+### For Admins
+1. **Login**: Use admin credentials
+2. **Create Users**: Add new kitchen staff or admin accounts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## API Integration
 
-### `npm run build` fails to minify
+The application communicates with a backend API server. All API calls are configured in `src/api.js`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Authentication Endpoints
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+
+### Order Management
+- `POST /api/orders` - Create new order
+- `GET /api/orders/:id/status` - Get order status
+- `PUT /api/orders/:id/cancel` - Cancel order
+
+### Menu Management
+- `GET /api/menu` - Fetch menu items
+
+### Admin Endpoints
+- `POST /api/admin/create-user` - Create new user (admin only)
+
+### Request/Response Format
+
+#### Authentication
+```json
+// Login Request
+{
+  "email": "user@example.com",
+  "password": "password",
+  "role": "CUSTOMER"
+}
+
+// Login Response
+{
+  "token": "jwt-token-here",
+  "user": {
+    "id": 1,
+    "name": "User Name",
+    "email": "user@example.com",
+    "role": "CUSTOMER"
+  }
+}
+```
+
+#### Order Creation
+```json
+// Order Request
+{
+  "tableNumber": "T5",
+  "items": [
+    {
+      "menuItemId": 1,
+      "quantity": 2
+    }
+  ],
+  "customerEmail": "user@example.com"
+}
+
+// Order Response
+{
+  "id": 123,
+  "status": "PLACED",
+  "total": 100,
+  "items": [...],
+  "createdAt": "2024-01-01T10:00:00Z"
+}
+```
+
+## File Structure
+
+```
+smart-canteen/
+├── public/
+│   ├── index.html
+│   ├── manifest.json
+│   ├── robots.txt
+│   └── images/          # Static food images
+├── src/
+│   ├── api.js           # API configuration and interceptors
+│   ├── App.js           # Main application component and routing
+│   ├── App.css          # Global styles
+│   ├── index.js         # Application entry point
+│   ├── components/
+│   │   └── SmartCanteen.js  # Legacy component (not actively used)
+│   ├── pages/
+│   │   ├── Auth.js      # Authentication page
+│   │   ├── Auth.css     # Auth page styles
+│   │   ├── Menu.js      # Menu browsing page
+│   │   ├── Menu.css     # Menu page styles
+│   │   ├── Order.js     # Cart/Order management page
+│   │   ├── Order.css    # Order page styles
+│   │   ├── Pay.js       # Payment processing page
+│   │   ├── Pay.css      # Pay page styles
+│   │   ├── OrderPlaced.js  # Order confirmation page
+│   │   ├── OrderPlaced.css # Order placed styles
+│   │   ├── OrderTracking.js # Order tracking page
+│   │   ├── OrderTracking.css # Order tracking styles
+│   │   ├── AdminCreateUser.js # Admin user creation page
+│   │   └── Kitchen.js   # Kitchen staff dashboard
+│   └── Styles/          # Additional style files
+├── package.json         # Dependencies and scripts
+└── README.md           # This documentation
+```
+
+## Roles and Permissions
+
+### CUSTOMER
+- Browse menu and place orders
+- Track order status
+- Cancel orders (under certain conditions)
+
+### KITCHEN_STAFF
+- View all orders
+- Update order preparation status
+- Access kitchen management interface
+
+### ADMIN
+- All customer permissions
+- Create new user accounts (kitchen staff and admins)
+- Full system access
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Development Guidelines
+- Follow React best practices and hooks patterns
+- Maintain consistent code style with ESLint
+- Write descriptive commit messages
+- Test components using React Testing Library
+- Ensure responsive design across devices
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+**Note**: This is a frontend-only application. It requires a compatible backend API server to function fully. The backend should implement the API endpoints documented in the [API Integration](#api-integration) section.

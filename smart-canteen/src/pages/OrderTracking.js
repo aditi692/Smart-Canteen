@@ -1,7 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../api";
 import "./OrderTracking.css";
 
-const OrderTracking = () => {
+const OrderTracking = ({ orders, setOrders }) => {
+  const navigate = useNavigate();
+  const [currentOrder, setCurrentOrder] = useState(null);
+  const [canCancel, setCanCancel] = useState(false);
+
+  useEffect(() => {
+    // Fetch the latest order (assuming the last one in orders array)
+    if (orders.length > 0) {
+      const order = orders[orders.length - 1];
+      setCurrentOrder(order);
+      // For demo purposes, always allow cancellation
+      setCanCancel(true);
+    }
+  }, [orders]);
+
+  const handleCancel = async () => {
+    if (!currentOrder) return;
+    try {
+      await api.put(`/api/orders/${currentOrder.id}/cancel`);
+      // Update order status in state
+      const updatedOrders = orders.map(o =>
+        o.id === currentOrder.id ? { ...o, status: "CANCELLED" } : o
+      );
+      setOrders(updatedOrders);
+      alert("Order cancelled successfully!");
+      navigate("/menu"); // Redirect to menu after cancellation
+    } catch (err) {
+      alert(err?.response?.data?.message || "Cancellation failed");
+    }
+  };
+
+  if (!currentOrder) return <div>Loading...</div>;
+
   return (
     <div className="order-tracking-container">
       <div className="header">
@@ -11,7 +45,9 @@ const OrderTracking = () => {
           className="header-icon"
         />
         <p className="header-text">
-          Your food is being prepared. Order will be ready in <b>17 minutes.</b>
+          {currentOrder.status === "CANCELLED"
+            ? "Order has been cancelled."
+            : `Your food is being prepared. Order will be ready in 17 minutes.`}
         </p>
       </div>
 
@@ -63,7 +99,24 @@ const OrderTracking = () => {
         </div>
       </div>
 
-      <button className="done-btn">Done</button>
+      <div style={{ marginTop: 20, display: "flex", gap: "10px" }}>
+        {canCancel && (
+          <button
+            onClick={handleCancel}
+            style={{
+              backgroundColor: "red",
+              color: "white",
+              padding: "10px 20px",
+              border: "none",
+              borderRadius: 5,
+              cursor: "pointer"
+            }}
+          >
+            Cancel Order
+          </button>
+        )}
+        <button className="done-btn">Done</button>
+      </div>
     </div>
   );
 };

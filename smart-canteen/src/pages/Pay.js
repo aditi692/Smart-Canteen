@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../api";
 
-export default function Pay({ orderItems, setOrderItems, orders, setOrders }) {
+export default function Pay({ orderItems = [], setOrderItems = () => {}, orders = [], setOrders = () => {} }) {
   const navigate = useNavigate();
+  const [tableNumber, setTableNumber] = useState("");
 
-  // Group items by id and count quantity
   const cart = orderItems.reduce((acc, item) => {
     const found = acc.find(i => i.id === item.id);
     if (found) found.qty += 1;
@@ -12,52 +13,46 @@ export default function Pay({ orderItems, setOrderItems, orders, setOrders }) {
     return acc;
   }, []);
 
-  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const handlePayment = async () => {
+    if (!tableNumber.trim()) {
+      alert("Please enter a valid table number");
+      return;
+    }
 
-  const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+    const payload = {
+      tableNumber: tableNumber,
+      items: cart.map(i => ({ menuItemId: i.id, quantity: i.qty })),
+      customerEmail: localStorage.getItem('userEmail') || null
+    };
 
-  const handlePayment = () => {
-    const order = { id: Date.now(), items: cart, total: totalPrice, status: "PLACED" };
-    setOrders(prev => [...prev, order]);
-    setOrderItems([]); // Clear the cart after payment
-    alert("Redirecting to Razorpay (Dummy)...");
-    setTimeout(() => navigate("/order-placed"), 2000);
+    try {
+      const res = await api.post("/api/orders", payload);
+      setOrderItems([]);
+      setOrders([...orders, res.data]);
+      navigate("/order-placed");
+    } catch (err) {
+      console.error(err);
+      alert(err?.response?.data?.message || "Order failed");
+    }
   };
 
   return (
-    <div style={{ padding: "2rem", textAlign: "center" }}>
-      <h2>Payment</h2>
-
-      <div style={{ marginBottom: "1.5rem" }}>
-        <h3>Order Summary</h3>
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {cart.map((item) => (
-            <li key={item.id}>
-              {item.name} x {item.qty} = ₹{item.price * item.qty}
-            </li>
-          ))}
-        </ul>
-        <p>
-          <strong>Total Items:</strong> {totalItems}
-        </p>
-        <p>
-          <strong>Total Price:</strong> ₹{totalPrice}
-        </p>
-      </div>
-
-      <button
-        style={{
-          background: "#ff9800",
-          border: "none",
-          padding: "0.75rem 1.5rem",
-          borderRadius: "8px",
-          color: "#fff",
-          cursor: "pointer",
-        }}
-        onClick={handlePayment}
-      >
-        Pay Now
-      </button>
+    <div style={{ padding: 20 }}>
+      <h3>Confirm & Pay</h3>
+      <input
+        type="text"
+        placeholder="Enter Table Number"
+        value={tableNumber}
+        onChange={(e) => setTableNumber(e.target.value)}
+        required
+        style={{ marginBottom: 10, padding: 8, fontSize: 16 }}
+      />
+      <p>Items: {cart.length}</p>
+      <p>Total: ₹{cart.reduce((s, i) => s + i.price * i.qty, 0)}</p>
+      <button onClick={handlePayment}>Pay & Place Order</button>
+      <p style={{ marginTop: 10, fontStyle: "italic", color: "gray" }}>
+        * This is a demo payment. No real payment is processed.
+      </p>
     </div>
   );
 }
