@@ -1,48 +1,122 @@
-# Password Cracking and Hashing Algorithms
 
-### Project Overview
+Smart Canteen – Frontend
+A modern, responsive frontend web application for campus canteen management. Built with React, supporting multiple user roles for Customers, Kitchen Staff, and Admins.
 
-This project was developed to demonstrate a practical understanding of cryptographic hashing and its vulnerabilities. The goal is to show how a simple dictionary attack can be used to "crack" passwords that have been secured with an outdated and insecure hashing algorithm.
+Table of Contents
+Features
 
-**Disclaimer:** This project is for educational and ethical purposes only. The techniques and code provided should only be used in a legal and authorized environment.
+Tech Stack
 
-### Project Files
+Installation
 
--   `password_cracker.py`: The main Python script that performs the dictionary attack. It reads a list of target hashes and a wordlist, then attempts to match them.
--   `hashed_passwords.txt`: A file containing MD5 hashes of known, simple passwords. This represents a "leaked" password file.
--   `wordlist.txt`: A simple dictionary of common passwords used to attempt to crack the hashes.
+Usage
 
-### Methodology
+Project Structure
 
-The `password_cracker.py` script follows a simple logic:
-1.  It reads the hashes from `hashed_passwords.txt`.
-2.  It iterates through each word in the `wordlist.txt`.
-3.  For each word, it generates an MD5 hash.
-4.  It compares the generated hash to the target hashes.
-5.  If a match is found, it reports the plaintext password and the corresponding hash.
+API Integration
 
-This method, known as a **dictionary attack**, highlights why using simple, common passwords and weak hashing algorithms (like MD5) is a major security risk.
+Roles & Permissions
 
-### How to Run the Project
+Contributing
 
-#### Prerequisites
--   Python 3 (The `hashlib` library is built-in).
+License
 
-#### Steps
-1.  Place all three project files (`password_cracker.py`, `hashed_passwords.txt`, `wordlist.txt`) in the same directory.
-2.  Open a terminal or command prompt and navigate to the project directory.
-3.  Execute the Python script with the following command:
-    ```sh
-    python password_cracker.py
-    ```
-4.  The script will print the results to the console, showing which hashes were successfully cracked.
+Features
+Secure login/sign-up (JWT-based)
 
-### Skills Demonstrated
+Dynamic menu with categories and search
 
--   **Cryptography Fundamentals:** Understanding hashing, salting, and the difference between secure and insecure algorithms.
--   **Ethical Hacking:** Understanding attack methodologies like dictionary attacks.
--   **Python Programming:** File I/O, string manipulation, and using the `hashlib` library.
--   **Security Best Practices:** The importance of using strong, salted hashes for password storage.
+Cart and order management
 
----
-*Project completed by Aditya Sudhakar Mundhe  as part of my internship.*
+Real-time order tracking and notifications
+
+Staff/Admin dashboards
+
+Responsive mobile-friendly design
+
+Tech Stack
+React 19.1.1
+
+Axios 1.13.1
+
+React Router DOM 7.9.1
+
+CSS Modules
+
+Installation
+Clone the Repository
+
+bash
+git clone <your-repository-url>
+cd smart-canteen
+Install Dependencies
+
+bash
+npm install
+Start Development Server
+
+bash
+npm start
+Usage
+Register or login as Customer, Kitchen Staff, or Admin
+
+Browse menu items and place orders
+
+Track order status in real-time
+
+Admins can add staff users
+
+Project Structure
+text
+smart-canteen/
+├── public/
+├── src/
+│   ├── api.js           # API config (Axios)
+│   ├── App.js           # Main app/router
+│   ├── pages/           # Page components
+│   ├── components/      # Shared components
+│   └── Styles/          # CSS files
+├── package.json
+└── README.md
+API Integration
+API calls located in src/api.js
+
+JWT token stored in localStorage for secure requests
+
+Roles & Permissions
+Role	Permissions
+Customer	Browse menu, place/track/cancel orders
+Kitchen Staff	View and update order status
+Admin	User management, system settings
+Contributing
+Fork and clone this repository
+
+Create a branch: git checkout -b feature/your-feature
+
+Commit changes: git commit -m 'Add new feature'
+
+Push and open a Pull Request
+
+License
+MIT License
+
+How to add the README.md in Git:
+
+Create your README.md file in your project folder (just copy the above template and save it as README.md):
+
+text
+touch README.md
+or manually create the file.
+
+Add it to Git:
+
+text
+git add README.md
+Commit:
+
+text
+git commit -m "Add README.md"
+Push:
+
+text
+git push origin main
