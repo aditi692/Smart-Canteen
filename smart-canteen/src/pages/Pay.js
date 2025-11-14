@@ -25,6 +25,13 @@ export default function Pay({ orderItems = [], setOrderItems = () => {}, orders 
       customerEmail: localStorage.getItem('userEmail') || null
     };
 
+    // Store userEmail for order tracking
+    const userEmail = localStorage.getItem('userEmail');
+    if (userEmail) {
+      payload.customerEmail = userEmail;
+      localStorage.setItem('userEmail', userEmail); // Ensure it's stored
+    }
+
     try {
       const res = await api.post("/api/orders", payload);
       setOrderItems([]);

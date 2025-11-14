@@ -21,7 +21,6 @@ export default function Auth({ onLogin = () => {} }) {
 
     try {
       if (isSignup) {
-        // Signup allows only CUSTOMER role
         await API.post("/api/auth/register", {
           name: form.name,
           email: form.email,
@@ -32,7 +31,6 @@ export default function Auth({ onLogin = () => {} }) {
         setForm({ name: "", email: "", password: "", role: "CUSTOMER" });
         setSuccessMessage("Registration successful! Please log in.");
       } else {
-        // Login with chosen role
         const res = await API.post("/api/auth/login", {
           email: form.email,
           password: form.password,
@@ -40,9 +38,10 @@ export default function Auth({ onLogin = () => {} }) {
         });
 
         const token = res.data?.token ?? res.data?.data?.token;
-        // Save token and role to localStorage
         if (token) localStorage.setItem("token", token);
         localStorage.setItem("role", form.role.toUpperCase());
+        // Updated: store email lowercase and trimmed for tracking/filtering
+        localStorage.setItem("userEmail", form.email.trim().toLowerCase());
 
         const userRole = form.role.toUpperCase();
         onLogin(userRole);

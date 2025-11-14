@@ -1,0 +1,100 @@
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+.admin-create-user-bg {
+  min-height: 100vh;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  background: #FE9D1D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.admin-create-user-card {
+  width: 360px;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(80, 80, 80, 0.13);
+  padding: 38px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.admin-create-user-card h2 {
+  margin-bottom: 16px;
+  text-align: center;
+  color: #333;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.admin-create-user-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.admin-create-user-card label {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  color: #222;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.admin-create-user-card input,
+.admin-create-user-card select {
+  padding: 9px 10px;
+  border: 1px solid #e4e4e4;
+  border-radius: 7px;
+  margin-top: 3px;
+  background: #fafbfc;
+  font-size: 16px;
+  color: #234205;
+  transition: border 0.18s;
+  font-family: inherit;
+}
+.admin-create-user-card input:focus,
+.admin-create-user-card select:focus {
+  border-color: #FE9D1D;
+  outline: none;
+}
+
+.admin-create-btn {
+  margin-top: 16px;
+  padding: 12px 0;
+  width: 100%;
+  background: #779830;
+  color: #fff;
+  font-weight: 600;
+  font-size: 17px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 8px 0 #fbeec2c3;
+  transition: background 0.2s;
+}
+.admin-create-btn:hover {
+  background: #6b882a;
+}
+
+.admin-message {
+  text-align: center;
+  margin-bottom: 8px;
+  padding: 7px 0;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+.admin-message.success {
+  background: #dbffe7;
+  color: #1b622c;
+}
+
+.admin-message.error {
+  background: #ffe7e7;
+  color: #b82e2e;
+}
