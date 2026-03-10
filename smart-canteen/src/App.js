@@ -7,6 +7,7 @@ import Order from "./pages/Order";
 import Pay from "./pages/Pay";
 import OrderPlaced from "./pages/OrderPlaced";
 import OrderTracking from "./pages/OrderTracking";
+import ThankYou from "./pages/ThankYou";
 import UserProfile from "./pages/UserProfile";
 import AdminCreateUser from "./pages/AdminCreateUser";
 import AnalyticsDashboard from "./pages/AnalyticsDashboard";
@@ -35,6 +36,7 @@ function AppContent({ orderItems, setOrderItems, orders, setOrders, inventory, s
         <Route path="/pay" element={<Pay orderItems={orderItems} setOrderItems={setOrderItems} orders={orders} setOrders={setOrders} />} />
         <Route path="/order-placed" element={<OrderPlaced />} />
         <Route path="/order-tracking" element={<OrderTracking orders={orders} setOrders={setOrders} />} />
+        <Route path="/thank-you" element={<ThankYou />} />
         <Route path="/profile" element={<UserProfile />} />
 
         

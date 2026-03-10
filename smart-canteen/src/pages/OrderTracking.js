@@ -186,9 +186,11 @@ const OrderTracking = ({ orders, setOrders }) => {
   }, [timeLeft]);
 
   const handleDone = () => {
-    if (!isReadyOrCompleted) {
-      navigate("/menu");
+    if (isReadyOrCompleted) {
+      navigate("/thank-you");
+      return;
     }
+    navigate("/menu");
   };
 
   const doneButtonText = isReadyOrCompleted ? "Done" : "Back to Menu";
